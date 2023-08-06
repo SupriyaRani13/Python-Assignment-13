@@ -1,0 +1,301 @@
+Python Assignment - 13
+
+1. What advantages do Excel spreadsheets have over CSV spreadsheets?
+
+Sol: Excel spreadsheets and CSV (Comma Separated Values) files serve different purposes and have distinct advantages over each other
+     depending on the context of their usage. 
+
+  a) Data organization and structure: Excel allows for more complex data organization and structure compared to CSV.
+
+  b) Formulas and calculations: Excel has built-in functions and formulas that can perform complex calculations, statistical analysis, and data manipulation.
+
+  c) Visual representation: Excel provides various charts, graphs, and pivot tables to visualize data, which can be helpful for data analysis and 
+     reporting. In contrast, CSV files only contain plain text data and do not offer any visual representation capabilities.
+
+  d) Data filtering and sorting: Excel allows you to easily filter and sort data based on specific criteria, making it simpler to analyze and 
+     extract insights from large datasets. CSV files do not have built-in filtering and sorting functions.
+
+  e) Data protection and security: Excel provides various security features such as password protection, data encryption, and user-level access 
+     control to protect sensitive information. These security features are not inherent in CSV files.
+
+
+ 2. What do you pass to csv.reader() and csv.writer() to create reader and writer objects?
+
+ Sol: In Python's csv module, we can create reader and writer objects by passing file-like objects to the csv.reader() and csv.writer()
+      functions, respectively. 
+
+
+   1. To create a reader object:-
+
+   Eg - import csv
+
+     # Assuming you have a CSV file named 'data.csv'
+     # Open the file in read mode and create a file object
+     with open('data.csv', newline='') as csvfile:
+     # Pass the file object to csv.reader() to create the reader object
+     reader = csv.reader(csvfile)
+
+     # Now 'reader' is a CSV reader object that allows you to read data from the CSV file.
+
+   2. To create a writer object:-
+
+    Eg - import csv
+
+     # Assuming you want to create a new CSV file named 'output.csv'
+     # Open the file in write mode and create a file object
+     with open('output.csv', 'w', newline='') as csvfile:
+     # Pass the file object to csv.writer() to create the writer object
+     writer = csv.writer(csvfile)
+
+     # Now 'writer' is a CSV writer object that allows you to write data to the CSV file.
+
+   In both cases, you need to use the open() function to open the file in the desired mode ('r' for reading or 'w' for writing).
+   When opening the file for reading, make sure to include newline='' as an argument to avoid issues with line endings on different platforms.
+
+
+
+3. What modes do File objects for reader and writer objects need to be opened in?
+
+Sol: 1. Reader Object:-
+
+    a) The file object for the CSV reader needs to be opened in text mode with the mode 'r' or 'rt' (read mode).
+
+    b)Additionally, you should specify newline='' as an argument to the open() function to handle newline characters correctly when reading the CSV file.
+
+    Eg - import csv
+
+        # Open the CSV file in read mode with newline=''
+        with open('data.csv', newline='') as csvfile:
+        # Pass the file object to csv.reader() to create the reader object
+        reader = csv.reader(csvfile)
+
+
+    2. Writer Object:-
+
+    a) The file object for the CSV writer needs to be opened in text mode with the mode 'w' or 'wt' (write mode).
+
+    b) Similarly, specify newline='' as an argument to the open() function when writing to the CSV file to handle newline characters properly.
+
+    Eg - import csv
+
+       # Open a new CSV file in write mode with newline=''
+       with open('output.csv', 'w', newline='') as csvfile:
+       # Pass the file object to csv.writer() to create the writer object
+       writer = csv.writer(csvfile)
+
+
+4. What method takes a list argument and writes it to a CSV file?
+
+Sol: The method that takes a list argument and writes it to a CSV file is the writerow() method of the CSV writer object. 
+     This method is used to write a single row of data from a list to the CSV file.
+
+   Here's how you can use the writerow() method to write a list to a CSV file:-
+
+   Eg - import csv
+
+      # Assuming you have a list of data
+      data_list = ['John', 'Doe', 30, 'john@example.com']
+
+      # Open a new CSV file in write mode with newline=''
+      with open('output.csv', 'w', newline='') as csvfile:
+      # Create the CSV writer object
+      writer = csv.writer(csvfile)
+
+      # Use writerow() to write the list as a single row in the CSV file
+      writer.writerow(data_list)
+
+    If we have multiple rows of data (lists of lists), you can use the writerows() method to write them all at once.
+    The writerows() method takes an iterable of lists and writes each list as a separate row in the CSV file. 
+
+   Eg - import csv
+
+       # Assuming you have a list of lists containing multiple rows of data
+       data_rows = [
+        ['John', 'Doe', 30, 'john@example.com'],
+        ['Jane', 'Smith', 25, 'jane@example.com'],
+        ['Bob', 'Johnson', 40, 'bob@example.com']
+       ]
+
+       # Open a new CSV file in write mode with newline=''
+       with open('output.csv', 'w', newline='') as csvfile:
+       # Create the CSV writer object
+       writer = csv.writer(csvfile)
+
+       # Use writerows() to write all the data_rows to the CSV file
+       writer.writerows(data_rows)
+
+
+5. What do the keyword arguments delimiter and line terminator do?
+
+Sol: In the context of Python's csv module, the keyword arguments delimiter and line_terminator are used when working with CSV files to customize 
+     the format of the CSV data. These arguments allow you to specify the characters used to separate fields (columns) and terminate lines (rows)
+      in the CSV file.
+
+  
+   1. delimiter:-
+
+     a) The delimiter argument specifies the character that separates individual fields (values) within a CSV row.
+     b) By default, the delimiter is set to ',' (comma), which is the reason CSV files are often referred to as "Comma Separated Values."
+     c) However, depending on your data, you might encounter CSV files that use different delimiters, such as tabs, semicolons, or other characters.
+
+   
+    Eg - import csv
+
+        # Assuming you have a CSV file named 'data.csv' with tab-separated values
+        # Open the file in read mode and create a file object
+        with open('data.csv', newline='') as csvfile:
+        # Pass the file object and specify the delimiter as '\t' (tab) to create the reader object
+        reader = csv.reader(csvfile, delimiter='\t')
+
+    2. line_terminator:-
+
+      a) The line_terminator argument specifies the character used to terminate each line (row) in the CSV file.
+      b) By default, the line_terminator is set to '\r\n' (carriage return + line feed), which is the standard line terminator for CSV files 
+        on Windows systems.
+      c) On other platforms, such as Unix-based systems, the standard line terminator is '\n' (line feed).
+
+    Eg - import csv
+
+      # Assuming you want to create a new CSV file named 'output.csv' with Unix-style line endings
+      # Open the file in write mode and create a file object
+      with open('output.csv', 'w', newline='') as csvfile:
+      # Pass the file object and specify the line_terminator as '\n' to create the writer object
+      writer = csv.writer(csvfile, line_terminator='\n')
+
+
+
+6. What function takes a string of JSON data and returns a Python data structure?
+
+Sol: The function that takes a string of JSON data and returns a Python data structure is json.loads(). The json module in Python provides
+     this function, which is used to deserialize (parse) a JSON-formatted string and convert it into a corresponding Python data structure.
+
+
+    We can use json.loads() to parse a JSON string :-
+
+   Eg - import json
+
+     # Assuming you have a JSON-formatted string
+     json_string = '{"name": "John", "age": 30, "email": "john@example.com"}'
+
+     # Use json.loads() to convert the JSON string into a Python data structure
+     python_data = json.loads(json_string)
+
+     # Now 'python_data' contains a Python dictionary representing the JSON data
+     print(python_data)  # Output: {'name': 'John', 'age': 30, 'email': 'john@example.com'}
+
+
+    In this example, json.loads(json_string) takes the json_string, which is a valid JSON-formatted string, and returns a Python dictionary
+    representing the JSON data.
+
+
+
+7. What function takes a Python data structure and returns a string of JSON data?
+
+Sol: The function that takes a Python data structure and returns a string of JSON data is json.dumps().
+     The json module in Python provides this function, which is used to serialize (encode) a Python data structure into a JSON-formatted string.
+
+    Here's how we can use json.dumps() to convert a Python data structure into a JSON string :-
+
+   Eg - import json
+
+        # Assuming you have a Python dictionary representing some data
+        python_data = {'name': 'John', 'age': 30, 'email': 'john@example.com'}
+
+        # Use json.dumps() to convert the Python data into a JSON-formatted string
+        json_string = json.dumps(python_data)
+
+        # Now 'json_string' contains the JSON representation of the Python data
+        print(json_string)  # Output: '{"name": "John", "age": 30, "email": "john@example.com"}'
+
+   In this example, json.dumps(python_data) takes the python_data, which is a Python dictionary, and converts it into a JSON-formatted string.
+
+
+
+
+
+
+
+
+
+ 
+    
+
+
+
+  
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
